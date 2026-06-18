@@ -99,6 +99,23 @@ The default image is `ghcr.io/beaudamore/webhook-alerts:latest`.
 
 The receiver listens on port `8080` by default.
 
+## Open WebUI Webhook URL
+
+The prompt-injection filter reads the receiver URL from `PROMPT_INJECTION_WEBHOOK_URL` by default. If the Open WebUI or `damoreai` container is on the same Docker network as this service, set it to:
+
+```text
+http://webhook-alerts:8080/webhooks/openwebui/prompt-injection-lockout
+```
+
+If it is on another Docker host or network, use a reachable host or public URL instead:
+
+```text
+http://<docker-host-ip-or-dns>:8080/webhooks/openwebui/prompt-injection-lockout
+https://<public-hostname>/webhooks/openwebui/prompt-injection-lockout
+```
+
+Do not use `PROMPT_INJECTION_SLACK_WEBHOOK_URL` unless you intentionally change the filter valve `notification_webhook_url_env` to that env var name.
+
 ## Publishing to GHCR
 
 This repo includes [publish-ghcr.yml](.github/workflows/publish-ghcr.yml). After this folder is pushed as a GitHub repository, pushes to `main`, version tags, or manual workflow runs publish images to:

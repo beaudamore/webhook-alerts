@@ -65,17 +65,31 @@ GMAIL_TO=
 
 ## Open WebUI Wiring
 
-Set this environment variable on the Open WebUI container:
+Set this environment variable on the Open WebUI or `damoreai` container:
 
 ```yaml
 environment:
   PROMPT_INJECTION_WEBHOOK_URL: ${PROMPT_INJECTION_WEBHOOK_URL}
 ```
 
-If both containers are in the same Docker network and the webhook service is named `webhook-alerts`, set the value to:
+The prompt-injection filter currently reads `PROMPT_INJECTION_WEBHOOK_URL` by default. Do not use `PROMPT_INJECTION_SLACK_WEBHOOK_URL` unless you also change the filter valve `notification_webhook_url_env` to that exact name.
+
+If both containers are on the same Docker host and attached to the same Docker network, set `PROMPT_INJECTION_WEBHOOK_URL` to the service name URL:
 
 ```text
 http://webhook-alerts:8080/webhooks/openwebui/prompt-injection-lockout
+```
+
+If the Open WebUI or `damoreai` container is not on the same Docker network, set `PROMPT_INJECTION_WEBHOOK_URL` to a reachable host URL instead:
+
+```text
+http://<docker-host-ip-or-dns>:8080/webhooks/openwebui/prompt-injection-lockout
+```
+
+If you expose the receiver through HTTPS, use the public HTTPS URL:
+
+```text
+https://<public-hostname>/webhooks/openwebui/prompt-injection-lockout
 ```
 
 Then configure the prompt injection filter valves:
