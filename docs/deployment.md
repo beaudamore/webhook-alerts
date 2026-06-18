@@ -15,7 +15,6 @@ Use local builds while developing. Use the GHCR image for Portainer, servers, or
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `WEBHOOK_ALERTS_IMAGE` | No | Image used by the Portainer/GHCR stack. Defaults to `ghcr.io/beaudamore/webhook-alerts:latest`. |
 | `SLACK_WEBHOOK_URL` | No | Slack incoming webhook URL. Leave empty to disable Slack forwarding. |
 | `GMAIL_CLIENT_ID` | No | Google OAuth client ID for Gmail API forwarding. |
 | `GMAIL_CLIENT_SECRET` | No | Google OAuth client secret for Gmail API forwarding. |
@@ -27,13 +26,21 @@ Only define variables for integrations you want enabled.
 
 ## Simple Local Compose
 
+From the repository root, the default Compose file pulls the published GHCR image:
+
+```bash
+docker compose up -d
+```
+
+For local development builds, use the simple build example instead:
+
 From the repository root:
 
 ```bash
 docker compose -f docs/simple-compose.yml up --build -d
 ```
 
-This stack builds the image locally from the parent directory.
+The docs example builds the image locally from the parent directory.
 
 Health check:
 
@@ -48,7 +55,6 @@ Use [portainer-stack.yml](portainer-stack.yml) in Portainer. It pulls an image i
 Recommended Portainer stack variables:
 
 ```env
-WEBHOOK_ALERTS_IMAGE=ghcr.io/beaudamore/webhook-alerts:latest
 SLACK_WEBHOOK_URL=
 GMAIL_CLIENT_ID=
 GMAIL_CLIENT_SECRET=
@@ -56,8 +62,6 @@ GMAIL_REFRESH_TOKEN=
 GMAIL_FROM=
 GMAIL_TO=
 ```
-
-If you publish this repository under a different GitHub owner or repo, change `WEBHOOK_ALERTS_IMAGE` accordingly.
 
 ## Open WebUI Wiring
 

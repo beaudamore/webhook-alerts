@@ -79,27 +79,23 @@ Local Python testing also works on Windows, macOS, and Linux with Python 3.12 or
 
 ## Docker Compose
 
-For local development, build from the working tree:
+For server, Portainer, or normal deployment, pull the published GHCR image:
 
 ```bash
-docker compose up --build -d
+docker compose up -d
 ```
 
-There is also a copyable minimal example at [docs/simple-compose.yml](docs/simple-compose.yml).
+The root [docker-compose.yml](docker-compose.yml) does not require a local build context.
 
-For a server or Portainer stack that should pull a published GHCR image instead of building locally, use:
+For local development, build from the working tree with:
 
 ```bash
-docker compose -f compose.ghcr.yml up -d
+docker compose -f docs/simple-compose.yml up --build -d
 ```
 
 There is also a Portainer-focused stack example at [docs/portainer-stack.yml](docs/portainer-stack.yml).
 
-The default image is `ghcr.io/beaudamore/webhook-alerts:latest`. Override it with `WEBHOOK_ALERTS_IMAGE` if you publish under a different owner or repository.
-
-```env
-WEBHOOK_ALERTS_IMAGE=ghcr.io/<owner>/<repo>:latest
-```
+The default image is `ghcr.io/beaudamore/webhook-alerts:latest`.
 
 The receiver listens on port `8080` by default.
 

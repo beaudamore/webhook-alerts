@@ -2,18 +2,18 @@ name: webhook-alerts
 
 services:
   webhook-alerts:
-    image: ${WEBHOOK_ALERTS_IMAGE:-ghcr.io/beaudamore/webhook-alerts:latest}
+    image: ghcr.io/beaudamore/webhook-alerts:latest
     container_name: webhook-alerts
     restart: unless-stopped
     ports:
       - "8080:8080"
     environment:
-      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL:-}
-      GMAIL_CLIENT_ID: ${GMAIL_CLIENT_ID:-}
-      GMAIL_CLIENT_SECRET: ${GMAIL_CLIENT_SECRET:-}
-      GMAIL_REFRESH_TOKEN: ${GMAIL_REFRESH_TOKEN:-}
-      GMAIL_FROM: ${GMAIL_FROM:-}
-      GMAIL_TO: ${GMAIL_TO:-}
+      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
+      GMAIL_CLIENT_ID: ${GMAIL_CLIENT_ID}
+      GMAIL_CLIENT_SECRET: ${GMAIL_CLIENT_SECRET}
+      GMAIL_REFRESH_TOKEN: ${GMAIL_REFRESH_TOKEN}
+      GMAIL_FROM: ${GMAIL_FROM}
+      GMAIL_TO: ${GMAIL_TO}
     healthcheck:
       test:
         [
