@@ -32,11 +32,10 @@ The filter sends `POST /webhooks/openwebui/prompt-injection-lockout` with JSON:
 Currently included:
 
 - Slack incoming webhook forwarding
-- SMTP email forwarding
+- Gmail OAuth forwarding through the Gmail API
 
 Planned integrations can be added here without changing the Open WebUI filter:
 
-- Google Workspace / Chat
 - Microsoft Teams
 - SIEM collectors
 - Ticketing systems
@@ -52,8 +51,7 @@ app/models.py        # Generic Open WebUI alert schema
 app/config.py        # Environment variable helpers
 app/formatting.py    # Shared human-readable alert formatting
 app/slack.py         # Slack incoming webhook integration
-app/email.py         # SMTP email integration
-app/google_oauth.py  # Google OAuth / Workspace integration placeholder
+app/gmail_oauth.py   # Gmail OAuth / Gmail API integration
 ```
 
 Add new destinations as new files under `app/`, then call them from `app/main.py`.
@@ -64,16 +62,14 @@ Copy `.env.example` to `.env` for local Docker runs, or define these as Portaine
 
 ```env
 SLACK_WEBHOOK_URL=
-ALERT_EMAIL_TO=
-ALERT_EMAIL_FROM=openwebui-alerts@example.com
-SMTP_HOST=
-SMTP_PORT=25
-SMTP_USERNAME=
-SMTP_PASSWORD=
-SMTP_STARTTLS=true
+GMAIL_CLIENT_ID=
+GMAIL_CLIENT_SECRET=
+GMAIL_REFRESH_TOKEN=
+GMAIL_FROM=
+GMAIL_TO=
 ```
 
-Only set the variables for integrations you want enabled. If `SLACK_WEBHOOK_URL` is empty, Slack forwarding is skipped. If `ALERT_EMAIL_TO` or `SMTP_HOST` is empty, email forwarding is skipped.
+Only set the variables for integrations you want enabled. If `SLACK_WEBHOOK_URL` is empty, Slack forwarding is skipped. If `GMAIL_TO` or any Gmail OAuth value is empty, Gmail forwarding is skipped.
 
 ## Platform Support
 

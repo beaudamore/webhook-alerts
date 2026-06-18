@@ -9,13 +9,11 @@ services:
       - "8080:8080"
     environment:
       SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL:-}
-      ALERT_EMAIL_TO: ${ALERT_EMAIL_TO:-}
-      ALERT_EMAIL_FROM: ${ALERT_EMAIL_FROM:-openwebui-alerts@example.com}
-      SMTP_HOST: ${SMTP_HOST:-}
-      SMTP_PORT: ${SMTP_PORT:-25}
-      SMTP_USERNAME: ${SMTP_USERNAME:-}
-      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
-      SMTP_STARTTLS: ${SMTP_STARTTLS:-true}
+      GMAIL_CLIENT_ID: ${GMAIL_CLIENT_ID:-}
+      GMAIL_CLIENT_SECRET: ${GMAIL_CLIENT_SECRET:-}
+      GMAIL_REFRESH_TOKEN: ${GMAIL_REFRESH_TOKEN:-}
+      GMAIL_FROM: ${GMAIL_FROM:-}
+      GMAIL_TO: ${GMAIL_TO:-}
     healthcheck:
       test:
         [

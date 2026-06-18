@@ -2,7 +2,7 @@ from typing import Any
 
 from fastapi import FastAPI
 
-from . import email, google_oauth, slack
+from . import gmail_oauth, slack
 from .models import OpenWebUIAlert
 
 
@@ -26,15 +26,9 @@ async def openwebui_prompt_injection_lockout(alert: OpenWebUIAlert) -> dict[str,
         errors["slack"] = str(exc)
 
     try:
-        if email.forward(alert):
-            forwarded.append("email")
+        if await gmail_oauth.forward(alert):
+            forwarded.append("gmail_oauth")
     except Exception as exc:
-        errors["email"] = str(exc)
-
-    try:
-        if await google_oauth.forward(alert):
-            forwarded.append("google_oauth")
-    except Exception as exc:
-        errors["google_oauth"] = str(exc)
+        errors["gmail_oauth"] = str(exc)
 
     return {"ok": not errors, "forwarded": forwarded, "errors": errors}

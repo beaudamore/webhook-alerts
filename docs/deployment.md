@@ -17,13 +17,11 @@ Use local builds while developing. Use the GHCR image for Portainer, servers, or
 | --- | --- | --- |
 | `WEBHOOK_ALERTS_IMAGE` | No | Image used by the Portainer/GHCR stack. Defaults to `ghcr.io/beaudamore/webhook-alerts:latest`. |
 | `SLACK_WEBHOOK_URL` | No | Slack incoming webhook URL. Leave empty to disable Slack forwarding. |
-| `ALERT_EMAIL_TO` | No | Email recipient. Leave empty to disable email forwarding. |
-| `ALERT_EMAIL_FROM` | No | Email sender. Defaults to `openwebui-alerts@example.com`. |
-| `SMTP_HOST` | No | SMTP server host. Required only for email forwarding. |
-| `SMTP_PORT` | No | SMTP port. Defaults to `25`. |
-| `SMTP_USERNAME` | No | SMTP username. Leave empty for unauthenticated SMTP. |
-| `SMTP_PASSWORD` | No | SMTP password. |
-| `SMTP_STARTTLS` | No | Enable SMTP STARTTLS. Defaults to `true`. |
+| `GMAIL_CLIENT_ID` | No | Google OAuth client ID for Gmail API forwarding. |
+| `GMAIL_CLIENT_SECRET` | No | Google OAuth client secret for Gmail API forwarding. |
+| `GMAIL_REFRESH_TOKEN` | No | Google OAuth refresh token with Gmail send scope. |
+| `GMAIL_FROM` | No | Sender address for Gmail messages. Gmail may ignore aliases not allowed by the account. |
+| `GMAIL_TO` | No | Recipient address for Gmail forwarding. Leave empty to disable Gmail forwarding. |
 
 Only define variables for integrations you want enabled.
 
@@ -52,13 +50,11 @@ Recommended Portainer stack variables:
 ```env
 WEBHOOK_ALERTS_IMAGE=ghcr.io/beaudamore/webhook-alerts:latest
 SLACK_WEBHOOK_URL=
-ALERT_EMAIL_TO=
-ALERT_EMAIL_FROM=openwebui-alerts@example.com
-SMTP_HOST=
-SMTP_PORT=25
-SMTP_USERNAME=
-SMTP_PASSWORD=
-SMTP_STARTTLS=true
+GMAIL_CLIENT_ID=
+GMAIL_CLIENT_SECRET=
+GMAIL_REFRESH_TOKEN=
+GMAIL_FROM=
+GMAIL_TO=
 ```
 
 If you publish this repository under a different GitHub owner or repo, change `WEBHOOK_ALERTS_IMAGE` accordingly.
@@ -111,6 +107,10 @@ If no integrations are configured, `forwarded` is empty and `ok` remains `true`.
 ## Slack Setup
 
 Use [slack-security-alert-bot-manifest.yaml](slack-security-alert-bot-manifest.yaml) to create the Slack app. After installing the app to a channel, copy the generated incoming webhook URL into `SLACK_WEBHOOK_URL` for this service.
+
+## Gmail OAuth Setup
+
+Gmail forwarding uses the Gmail API, not SMTP. Configure a Google OAuth client with a refresh token that can send mail for the Gmail account, then set `GMAIL_CLIENT_ID`, `GMAIL_CLIENT_SECRET`, `GMAIL_REFRESH_TOKEN`, `GMAIL_FROM`, and `GMAIL_TO`. Leave any of those empty to disable Gmail forwarding.
 
 ## Publishing to GHCR
 

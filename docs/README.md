@@ -11,4 +11,4 @@ This folder contains deployment and integration documentation for the Open WebUI
 
 ## Runtime Contract
 
-Open WebUI sends one generic JSON event to this receiver. Integrations such as Slack, email, Google Workspace, Teams, SIEM, and ticketing systems are implemented here rather than inside the Open WebUI filter.
+Open WebUI sends one generic JSON event to this receiver. Integrations such as Slack, Gmail OAuth, Teams, SIEM, and ticketing systems are implemented here rather than inside the Open WebUI filter.
