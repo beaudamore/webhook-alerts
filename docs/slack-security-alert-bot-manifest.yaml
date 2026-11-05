@@ -1,0 +1,25 @@
+_metadata:
+  major_version: 1
+  minor_version: 1
+
+display_information:
+  name: Security Alert Bot
+  description: Receives Open WebUI filter security alerts.
+  background_color: "#7f1d1d"
+
+features:
+  bot_user:
+    display_name: Security Alert Bot
+    always_online: false
+
+oauth_config:
+  scopes:
+    bot:
+      - incoming-webhook
+
+settings:
+  incoming_webhooks:
+    incoming_webhooks_enabled: true
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
