@@ -41,6 +41,19 @@ Planned integrations can be added here without changing the Open WebUI filter:
 - Ticketing systems
 - Additional generic outbound webhooks
 
+## To Do: Make the Receiver Generic
+
+Noted 2026-11-05. Today this service does one job: it takes the prompt-injection lockout event from one Open WebUI
+filter and forwards it.
+
+- One route: `POST /webhooks/openwebui/prompt-injection-lockout` (`app/main.py`).
+- One fixed payload: `OpenWebUIAlert` in `app/models.py`, whose defaults are the lockout event.
+- Slack and Gmail are called directly from that route, and the Slack summary line is worded as a lockout
+  (`app/slack.py`).
+
+Goal: accept any alert event from any sender and forward it to the configured destinations, without a new route and
+model per event.
+
 ## Code Layout
 
 Provider-specific code is split by resource so integrations can be maintained independently:
